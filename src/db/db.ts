@@ -8,7 +8,6 @@ class Database {
 
   private constructor() {
     this.pgp = pgPromise();
-    console.log(config.dbName);
 
     const connectionOptions = {
       host: config.dbHost,

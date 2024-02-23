@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import app from "./app";
 import { testDbConnection } from "../db/test-db-connection";
+import config from "../config/config";
 
 class Server {
   private app: express.Application;
@@ -29,4 +30,4 @@ class Server {
   }
 }
 
-new Server(app).serve(3000);
+new Server(app).serve(config.port);
