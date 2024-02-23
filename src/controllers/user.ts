@@ -1,3 +1,4 @@
+import { UserModel } from "../models/users";
 import { UserService } from "../services/user";
 import { Request, Response } from "express";
 
@@ -7,6 +8,11 @@ export class UserController {
 
   constructor(userService: UserService) {
     this.userService = userService;
+  }
+
+  public myInfo(req: Request, res: Response) {
+    // @ts-ignore
+    res.send(req.user);
   }
 
   /**

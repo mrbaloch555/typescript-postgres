@@ -15,7 +15,7 @@ export class PhotosRepository implements Photos {
 
   async create(data: Partial<PhotosModel>): Promise<CreateResponse> {
     const createQuery = `
-      INSERT INTO users (url, user_id) 
+      INSERT INTO photos (url, user_id) 
       VALUES ($1, $2)
       RETURNING *;`;
 

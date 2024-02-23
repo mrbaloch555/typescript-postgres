@@ -1,4 +1,5 @@
 import pgPromise, { IDatabase, IMain } from "pg-promise";
+import config from "../config/config";
 
 class Database {
   private static instance: Database;
@@ -7,12 +8,14 @@ class Database {
 
   private constructor() {
     this.pgp = pgPromise();
+    console.log(config.dbName);
+
     const connectionOptions = {
-      host: "localhost",
-      port: 5432,
-      database: "typescriptsql",
-      user: "postgres",
-      password: "password",
+      host: config.dbHost,
+      port: config.dbPort,
+      database: config.dbName,
+      user: config.dbUser,
+      password: config.dbPassword,
     };
     this.db = this.pgp(connectionOptions);
     this.initializeDatabase();
@@ -45,7 +48,7 @@ class Database {
           CREATE TABLE IF NOT EXISTS photos (
             id SERIAL PRIMARY KEY,
             url VARCHAR(200) NOT NULL,
-            user_id INTEGER REFERENCES users(id),
+            user_id INTEGER REFERENCES users(id) NOT NULL,
             create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )
@@ -54,8 +57,8 @@ class Database {
           CREATE TABLE IF NOT EXISTS comments (
             id SERIAL PRIMARY KEY,
             contents VARCHAR(200) NOT NULL,
-            user_id INTEGER REFERENCES users(id),
-            photo_id INTEGER REFERENCES photos(id),
+            user_id INTEGER REFERENCES users(id) NOT NULL,
+            photo_id INTEGER REFERENCES photos(id) NOT NULL,
             create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )
@@ -66,7 +69,7 @@ class Database {
             refresh_token VARCHAR(500) NOT NULL,
             expires_at DATE NOT NULL,
             is_black_listed BOOL NOT NULL,
-            user_id INTEGER REFERENCES users(id),
+            user_id INTEGER REFERENCES users(id) NOT NULL,
             create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )

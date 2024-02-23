@@ -1,5 +1,7 @@
 import { IDatabase } from "pg-promise";
-import { getDb, closeDbConnection } from "./db";
+import { getDb } from "./db";
+import { BadRequestError } from "../errors/badRequest.error";
+import { SqlOperationError } from "../errors/sqlOperation.error";
 
 export async function RunQuery<T>(
   operation: (db: IDatabase<unknown>) => Promise<T>
@@ -8,6 +10,15 @@ export async function RunQuery<T>(
   try {
     const result = await operation(db);
     return result;
+  } catch (err) {
+    console.error(err);
+
+    let errorMessage = "SQL error";
+    if (err instanceof Error && err.message) {
+      errorMessage = err.message;
+    }
+
+    throw new SqlOperationError(errorMessage);
   } finally {
     // await closeDbConnection();
   }
