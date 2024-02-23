@@ -1,4 +1,5 @@
 import pgPromise, { IDatabase, IMain } from "pg-promise";
+import config from "../config/config";
 
 class Database {
   private static instance: Database;
@@ -7,12 +8,14 @@ class Database {
 
   private constructor() {
     this.pgp = pgPromise();
+    console.log(config.dbName);
+
     const connectionOptions = {
-      host: "localhost",
-      port: 5432,
-      database: "typescriptsql",
-      user: "postgres",
-      password: "password",
+      host: config.dbHost,
+      port: config.dbPort,
+      database: config.dbName,
+      user: config.dbUser,
+      password: config.dbPassword,
     };
     this.db = this.pgp(connectionOptions);
     this.initializeDatabase();
