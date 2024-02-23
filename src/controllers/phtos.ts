@@ -11,7 +11,11 @@ export class PhotoController {
 
   public async create(req: Request, res: Response) {
     const { body } = req;
-    res.status(200).send(await this.photoService.create(body));
+    const { user } = req;
+    res
+      .status(200)
+      // @ts-ignore
+      .send(await this.photoService.create({ ...body, user_id: user }));
   }
 
   public static getInstance(): PhotoController {

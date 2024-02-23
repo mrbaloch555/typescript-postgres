@@ -19,9 +19,11 @@ export class PhotoService {
   }
 
   public async create(body: Partial<PhotosModel>): Promise<CreateResponse> {
+    console.log(body);
+
     // if (!(await this.userService.getOne({ id: body.user_id?.id })).success) {
     //   throw new BadRequestError("No user exists for this usr!!!");
-    // }k
+    // }
     return await this.photoRepo.create(body);
   }
 

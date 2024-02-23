@@ -4,6 +4,7 @@ import { bindControllerMethods } from "../utils/binder";
 import { UserValidation } from "../validations/user";
 import { Validate } from "../middlewares/vaidate";
 import { AsyncHandler } from "../utils/AsyncHandler";
+import auth from "../middlewares/auth";
 
 export class UserRoutes {
   private controller: UserController;
@@ -18,6 +19,7 @@ export class UserRoutes {
   }
 
   private routes() {
+    this.router.route("/myinfo").get(auth(), this.controller.myInfo);
     this.router
       .route("/login")
       .post(

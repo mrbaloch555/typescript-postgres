@@ -45,7 +45,7 @@ class Database {
           CREATE TABLE IF NOT EXISTS photos (
             id SERIAL PRIMARY KEY,
             url VARCHAR(200) NOT NULL,
-            user_id INTEGER REFERENCES users(id),
+            user_id INTEGER REFERENCES users(id) NOT NULL,
             create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )
@@ -54,8 +54,8 @@ class Database {
           CREATE TABLE IF NOT EXISTS comments (
             id SERIAL PRIMARY KEY,
             contents VARCHAR(200) NOT NULL,
-            user_id INTEGER REFERENCES users(id),
-            photo_id INTEGER REFERENCES photos(id),
+            user_id INTEGER REFERENCES users(id) NOT NULL,
+            photo_id INTEGER REFERENCES photos(id) NOT NULL,
             create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )
@@ -66,7 +66,7 @@ class Database {
             refresh_token VARCHAR(500) NOT NULL,
             expires_at DATE NOT NULL,
             is_black_listed BOOL NOT NULL,
-            user_id INTEGER REFERENCES users(id),
+            user_id INTEGER REFERENCES users(id) NOT NULL,
             create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )
