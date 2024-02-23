@@ -20,7 +20,7 @@ class Server {
     testDbConnection()
       .then(() => {
         this.server.listen(port, () => {
-          console.log("Shit is ready to listen on port ", port);
+          console.log("Server is ready to listen on port ", port);
         });
       })
       .catch((err) => {
